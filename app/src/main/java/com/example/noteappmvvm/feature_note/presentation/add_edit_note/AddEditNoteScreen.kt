@@ -1,5 +1,6 @@
 package com.example.noteappmvvm.feature_note.presentation.add_edit_note
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -31,7 +32,7 @@ import kotlinx.coroutines.launch
 fun AddEditNoteScreen(
     navController: NavController,
     noteColor: Int,
-    viewModel: AddEditNoteViewModel = hiltViewModel()
+    viewModel: AddEditNoteViewModel = hiltViewModel(),
 ) {
     val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
@@ -131,9 +132,18 @@ fun AddEditNoteScreen(
                 textStyle = MaterialTheme.typography.body1,
                 modifier = Modifier.fillMaxHeight()
             )
+            BackHandler() {
+                viewModel.onEvent(AddEditNoteEvent.SaveNote)
+                
+            }
+
         }
 
     }
 
+
 }
+
+
+
 
